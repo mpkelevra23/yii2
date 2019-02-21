@@ -8,6 +8,7 @@
 
 namespace app\controllers\actions;
 
+use app\components\ActivityComponent;
 use app\models\Activity;
 use yii\base\Action;
 
@@ -15,20 +16,27 @@ class ActivityCreateAction extends Action
 {
     public function run()
     {
-        $activity = new Activity();
+        $comp = \Yii::createObject([
+            'class' => ActivityComponent::class,
+                'activity_class' => Activity::class
+        ]);
 
         if (\Yii::$app->request->isPost) {
-            $activity->load(\Yii::$app->request->post());
+            /**
+             * @var ActivityComponent $comp
+             */
+            $comp = \Yii::createObject([
+                'class' => ActivityComponent::class,
+//                'activity_class' => Activity::class
+            ]);
+            $activity = $comp->getModel(\Yii::$app->request->post());
+            $comp->createActivity($activity);
 
-            if ($activity->validate()) {
-                print_r($activity->getAttributes());
-            } else {
-                echo 'error validate';
-            }
 
         } else {
-            echo 'Ошибка отправки формы';
+            $activity = $comp->getModel();
         }
+
         return $this->controller->render('create', ['activity' => $activity]);
     }
 }
