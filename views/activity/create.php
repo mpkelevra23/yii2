@@ -20,10 +20,12 @@ use yii\jui\DatePicker;
         <?= $form->field($activity, 'date_start')->widget(DatePicker::class, [
             'language' => 'ru',
             'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class'=>'form-control']
         ]); ?>
         <?= $form->field($activity, 'date_end')->widget(DatePicker::class, [
             'language' => 'ru',
             'dateFormat' => 'yyyy-MM-dd',
+            'options'=>['class'=>'form-control']
         ]); ?>
         <?= $form->field($activity, 'notice')->dropDownList([
             'in_moment' => 'В момент события',
