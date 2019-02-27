@@ -47,7 +47,7 @@ class Activity extends Model
      *
      * @var string
      */
-    public $id_author;
+    public $id_user;
 
     /**
      * Описание события
@@ -114,7 +114,7 @@ class Activity extends Model
             'email' => 'Email',
             'date_start' => 'Дата начала',
             'date_end' => 'Дата завершения',
-            'id_author' => 'ID Автора',
+            'id_user' => 'ID Автора',
             'description' => 'Описание события',
             'repeat' => 'Повтор',
             'notice' => 'Уведомление',
