@@ -10,6 +10,7 @@ namespace app\models;
 
 
 use yii\base\Model;
+use yii\web\UploadedFile;
 
 class Activity extends Model
 {
@@ -26,6 +27,13 @@ class Activity extends Model
      * @var int
      */
     public $date_start;
+
+    /**
+     * Почта
+     *
+     * @var string
+     */
+    public $email;
 
     /**
      * День завершения события. Хранится в Unix timestamp
@@ -70,15 +78,32 @@ class Activity extends Model
      */
     public $is_blocked;
 
+    /**
+     * @var UploadedFile file attribute
+     */
+    public $files;
+
+    public function beforeValidate()
+    {
+        if (!empty($this->date_start)) {
+            $time = strtotime($this->date_start);
+            $this->date_start = date('Y-m-d', $time);
+        }
+
+        return parent::beforeValidate();
+    }
+
     public function rules()
     {
         return [
             ['title', 'string', 'max' => 150],
+            ['email', 'email'],
             [['description', 'notice'], 'string'],
-            [['title', 'date_start'], 'required'],
-            [['date_start', 'date_end'], 'string'], //не могу сделать валидацию в формате date
+            [['title', 'date_start', 'email'], 'required'],
+            [['date_start', 'date_end'], 'date', 'format' => 'php:Y-m-d'],
             [['is_blocked', 'repeat'], 'boolean'],
-            ['id_author', 'integer']
+            ['id_author', 'integer'],
+            [['files'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'checkExtensionByMimeType' => false, 'maxFiles' => 5]
         ];
     }
 
@@ -86,6 +111,7 @@ class Activity extends Model
     {
         return [
             'title' => 'Название события',
+            'email' => 'Email',
             'date_start' => 'Дата начала',
             'date_end' => 'Дата завершения',
             'id_author' => 'ID Автора',
