@@ -35,6 +35,6 @@ class ReadActivityOwnerRule extends Rule
             throw new \Exception('need param activity');
         }
 
-        return $activity->user_id = $user;
+        return $activity->user_id == $user;
     }
 }

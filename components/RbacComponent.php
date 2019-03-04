@@ -79,7 +79,7 @@ class RbacComponent extends Component
 
     public function canReadActivity($activity): bool
     {
-        return \Yii::$app->user->can('readActivityOwnerRule', ['activity' => $activity]);
+        return \Yii::$app->user->can('readActivity', ['activity' => $activity]);
     }
 
 
