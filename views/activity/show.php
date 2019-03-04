@@ -14,9 +14,8 @@ use yii\helpers\Html;
     <ul>
         <li><label>Заголовок</label>: <?= Html::encode($activity->title) ?></li>
         <li><label>Описание</label>: <?= Html::encode($activity->description) ?></li>
-        <li><label>Email</label>: <?= Html::encode($activity->email) ?></li>
-        <li><label>Время начала</label>: <?= Html::encode($activity->date_start) ?></li>
+        <li><label>Время начала</label>: <?= Html::encode(date("d.m.Y", strtotime($activity->date_start))) ?></li>
     </ul>
 
-    <?= Html::a('Новая активность', ['/activity/create'], ['class' => 'btn btn-default'])?>
+    <?= Html::a('Новая активность', ['/activity/create'], ['class' => 'btn btn-default']) ?>
 </div>

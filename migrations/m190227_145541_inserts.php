@@ -16,7 +16,7 @@ class m190227_145541_inserts extends Migration
             [
                 'id' => 1,
                 'email' => 'user_1@email.com',
-                'password_hash' => '123456',
+                'password_hash' => $this->hashPassword('12345'),
                 'username' => 'user_1'
             ]
         );
@@ -25,7 +25,7 @@ class m190227_145541_inserts extends Migration
             [
                 'id' => 2,
                 'email' => 'user_2@email.com',
-                'password_hash' => '123456',
+                'password_hash' => $this->hashPassword('54321'),
                 'username' => 'user_2'
             ]
         );
@@ -34,7 +34,7 @@ class m190227_145541_inserts extends Migration
             [
                 'id' => 3,
                 'email' => 'user_3@email.com',
-                'password_hash' => '123456',
+                'password_hash' => $this->hashPassword('11111'),
                 'username' => 'user_3'
             ]
         );
@@ -58,6 +58,11 @@ class m190227_145541_inserts extends Migration
     public function safeDown()
     {
         $this->delete('users');
+    }
+
+    private function hashPassword($password)
+    {
+        return Yii::$app->security->generatePasswordHash($password);
     }
 
     /*

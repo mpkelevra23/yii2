@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use app\base\BaseController;
 use app\controllers\actions\ActivityCreateAction;
+use app\controllers\actions\ActivityViewAction;
 
 
 class ActivityController extends BaseController
@@ -18,6 +19,7 @@ class ActivityController extends BaseController
     {
         return [
             'create' => ['class' => ActivityCreateAction::class],
+            'view' => ['class' => ActivityViewAction::class],
         ];
     }
 }

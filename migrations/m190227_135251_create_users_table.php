@@ -17,8 +17,8 @@ class m190227_135251_create_users_table extends Migration
             'email' => $this->string(150)->notNull()->unique(),
             'password_hash' => $this->string(300)->notNull(),
             'token' => $this->string(300),
-            'username'=> $this->string(150)->notNull(),
-            'date-created'=> $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
+            'username'=> $this->string(150),
+            'date_created'=> $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
         ]);
     }
 

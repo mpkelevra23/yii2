@@ -39,22 +39,21 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Главная', 'url' => ['/site/index']],
             ['label' => 'Создать активность', 'url' => ['/activity/create']],
-//            ['label' => 'About', 'url' => ['/site/about']],
-//            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Регистрация', 'url' => ['/auth/sign-up']],
             Yii::$app->user->isGuest ? (
-            ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Вход', 'url' => ['/auth/sign-in']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выход (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
         ],
     ]);
     NavBar::end();

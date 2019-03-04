@@ -34,7 +34,6 @@ use yii\jui\DatePicker;
             'week' => 'За одну неделю',
         ]); ?>
         <?= $form->field($activity, 'description')->textarea(['rows' => 10]); ?>
-        <?= $form->field($activity, 'email'); ?>
         <?= $form->field($activity, 'repeat')->checkbox(); ?>
         <?= $form->field($activity, 'is_blocked')->checkbox(); ?>
         <?= $form->field($activity, 'files[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
