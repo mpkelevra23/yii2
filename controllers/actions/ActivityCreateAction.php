@@ -34,7 +34,7 @@ class ActivityCreateAction extends Action
                         $file->saveAs('data/' . $file->baseName . '.' . $file->extension);
                     }
                 }
-                return $this->controller->render('show', ['activity' => $activity]);
+                return $this->controller->redirect(['/activity/view','id'=>$activity->id]);
             }
         } else {
             $activity = $comp->getModel();
