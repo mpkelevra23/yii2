@@ -11,6 +11,7 @@ namespace app\components;
 
 use app\models\Activity;
 use yii\base\Component;
+use yii\web\UploadedFile;
 
 class ActivityComponent extends Component
 {
@@ -60,6 +61,14 @@ class ActivityComponent extends Component
      */
     public function createActivity(&$model): bool
     {
+        if ($model->validate()) {
+            $model->files = UploadedFile::getInstances($model, 'files');
+            if ($model->files) {
+                foreach ($model->files as $file) {
+                    $file->saveAs('data/' . $file->baseName . '.' . $file->extension);
+                }
+            }
+        }
         return $model->save();
     }
 }
