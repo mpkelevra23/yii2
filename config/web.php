@@ -19,9 +19,9 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'G_9jCKbP-atXkYQm36fpRCB6U9nXsbPq',
         ],
-        'dao' => [
-            'class' => \app\components\DaoComponent::class,
-        ],
+        'auth' => \app\components\UsersAuthComponent::class,
+        'dao' => \app\components\DaoComponent::class,
+        'rbac' => \app\components\RbacComponent::class,
         'activity' => [
             'class' => \app\components\ActivityComponent::class,
             'activity_class' => '\app\models\Activity'
@@ -29,8 +29,11 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [

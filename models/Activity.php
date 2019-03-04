@@ -9,75 +9,10 @@
 namespace app\models;
 
 
-use yii\base\Model;
 use yii\web\UploadedFile;
 
-class Activity extends Model
+class Activity extends ActivityBase
 {
-    /**
-     * Название события
-     *
-     * @var string
-     */
-    public $title;
-
-    /**
-     * День начала события. Хранится в Unix timestamp
-     *
-     * @var int
-     */
-    public $date_start;
-
-    /**
-     * Почта
-     *
-     * @var string
-     */
-    public $email;
-
-    /**
-     * День завершения события. Хранится в Unix timestamp
-     *
-     * @var int
-     */
-    public $date_end;
-
-    /**
-     * ID автора, создавшего событие
-     *
-     * @var string
-     */
-    public $id_user;
-
-    /**
-     * Описание события
-     *
-     * @var string
-     */
-    public $description;
-
-    /**
-     * Повтор события
-     *
-     * @var bool
-     */
-    public $repeat;
-
-
-    /**
-     * Уведомление
-     *
-     * @var string
-     */
-    public $notice;
-
-    /**
-     * Блокировка
-     *
-     * @var bool
-     */
-    public $is_blocked;
-
     /**
      * @var UploadedFile file attribute
      */
@@ -90,28 +25,29 @@ class Activity extends Model
             $this->date_start = date('Y-m-d', $time);
         }
 
+        if (empty($this->date_end)) {
+            $this->date_end = $this->date_start;
+        }
+
         return parent::beforeValidate();
     }
 
     public function rules()
     {
-        return [
+        return array_merge([
             ['title', 'string', 'max' => 150],
-            ['email', 'email'],
             [['description', 'notice'], 'string'],
-            [['title', 'date_start', 'email'], 'required'],
+            [['title', 'date_start',], 'required'],
             [['date_start', 'date_end'], 'date', 'format' => 'php:Y-m-d'],
             [['is_blocked', 'repeat'], 'boolean'],
-            ['id_author', 'integer'],
-            [['files'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'checkExtensionByMimeType' => false, 'maxFiles' => 5]
-        ];
+            [['files'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'checkExtensionByMimeType' => false, 'maxFiles' => 5]
+        ], parent::rules());
     }
 
     public function attributeLabels()
     {
         return [
             'title' => 'Название события',
-            'email' => 'Email',
             'date_start' => 'Дата начала',
             'date_end' => 'Дата завершения',
             'id_user' => 'ID Автора',

@@ -32,26 +32,34 @@ class ActivityComponent extends Component
      * @return Activity
      */
 
-    public function getModel($parsms = null)
+    public function getModel($params = null)
     {
         /**
          * @var Activity $model
          */
         $model = new $this->activity_class;
-        if ($parsms && is_array($parsms)) {
-            $model->load($parsms);
+        if ($params && is_array($params)) {
+            $model->load($params);
         }
 
         return $model;
     }
 
     /**
-     * @param $model
+     * @param $id
+     * @return Activity|array|\yii\db\ActiveRecord|null
+     */
+    public function getActivity($id)
+    {
+        return $this->getModel()::find()->andWhere(['id' => $id])->one();
+    }
+
+    /**
+     * @param $model Activity
      * @return bool
      */
-
-    public function createActivity(&$model):bool
+    public function createActivity(&$model): bool
     {
-        return $model->validate();
+        return $model->save();
     }
 }
