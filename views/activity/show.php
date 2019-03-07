@@ -11,11 +11,12 @@ use yii\helpers\Html;
 ?>
 
 <div class="row">
-    <ul>
-        <li><label>Заголовок</label>: <?= Html::encode($activity->title) ?></li>
-        <li><label>Описание</label>: <?= Html::encode($activity->description) ?></li>
-        <li><label>Время начала</label>: <?= Html::encode(date("d.m.Y", strtotime($activity->date_start))) ?></li>
-    </ul>
-
+    <?php foreach ($activity as $item): ?>
+        <ul>
+            <li><label>Заголовок</label>: <?= Html::encode($item->title) ?></li>
+            <li><label>Описание</label>: <?= Html::encode($item->description) ?></li>
+            <li><label>Время начала</label>: <?= Html::encode(date("d.m.Y", strtotime($item->date_start))) ?></li>
+        </ul>
+    <?php endforeach; ?>
     <?= Html::a('Новая активность', ['/activity/create'], ['class' => 'btn btn-default']) ?>
 </div>

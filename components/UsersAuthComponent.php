@@ -65,7 +65,7 @@ class UsersAuthComponent extends Component
     }
 
     /**
-     * @param $model
+     * @param $model Users
      * @return bool
      * @throws \Exception
      */
@@ -75,9 +75,6 @@ class UsersAuthComponent extends Component
             return false;
         }
         $model->password_hash = $this->hashPassword($model->password);
-        if (!$model->validate()) {
-            return false;
-        }
         if ($model->save()) {
             $auth = \Yii::$app->authManager;
             $auth->assign($auth->getRole('user'), $model->id);
@@ -86,6 +83,11 @@ class UsersAuthComponent extends Component
         return false;
     }
 
+    /**
+     * @param $password
+     * @return string
+     * @throws \yii\base\Exception
+     */
     private function hashPassword($password)
     {
         return \Yii::$app->security->generatePasswordHash($password);

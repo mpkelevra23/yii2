@@ -26,6 +26,7 @@ class ReadActivityOwnerRule extends Rule
      * @param Item $item the role or permission that this rule is associated with
      * @param array $params parameters passed to [[CheckAccessInterface::checkAccess()]].
      * @return bool a value indicating whether the rule permits the auth item it is associated with.
+     * @throws \Exception
      */
     public function execute($user, $item, $params)
     {

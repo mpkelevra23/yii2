@@ -14,6 +14,10 @@ use yii\web\HttpException;
 
 class SignUpAction extends Action
 {
+    /**
+     * @return string|\yii\web\Response
+     * @throws HttpException
+     */
     public function run()
     {
         /** @var UsersAuthComponent $comp */
@@ -21,9 +25,12 @@ class SignUpAction extends Action
             $comp = \Yii::$app->auth;
             $model = $comp->getModel(\Yii::$app->request->post());
             if (\Yii::$app->request->isPost) {
-                if ($comp->createNewUser($model)) {
-                    \Yii::$app->session->addFlash('success', 'Вы успешно зарегестрировались ');
-                    return $this->controller->redirect(['/site']);
+                try {
+                    if ($comp->createNewUser($model)) {
+                        \Yii::$app->session->addFlash('success', 'Вы успешно зарегестрировались ');
+                        return $this->controller->redirect(['/site']);
+                    }
+                } catch (\Exception $e) {
                 }
             }
             return $this->controller->render('signup', ['model' => $model]);

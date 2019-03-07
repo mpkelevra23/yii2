@@ -16,6 +16,10 @@ use yii\web\HttpException;
 
 class ActivityCreateAction extends Action
 {
+    /**
+     * @return string|\yii\web\Response
+     * @throws HttpException
+     */
     public function run()
     {
         if (!\Yii::$app->rbac->canCreateActivity()) {
@@ -25,7 +29,6 @@ class ActivityCreateAction extends Action
         $comp = \Yii::$app->activity;
         /** @var Activity $model */
         $activity = $comp->getModel(\Yii::$app->request->post());
-        $activity->user_id = \Yii::$app->user->id;
         if (\Yii::$app->request->isPost) {
             if ($comp->createActivity($activity)) {
                 return $this->controller->redirect(['/activity/view', 'id' => $activity->id]);

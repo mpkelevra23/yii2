@@ -20,6 +20,9 @@ class ActivityComponent extends Component
      */
     public $activity_class;
 
+    /**
+     * @throws \Exception
+     */
     public function init()
     {
         parent::init();
@@ -56,11 +59,20 @@ class ActivityComponent extends Component
     }
 
     /**
+     * @return Activity|array|\yii\db\ActiveRecord|null
+     */
+    public function getAllUserActivity()
+    {
+        return $this->getModel()::find()->andWhere(['user_id' => \Yii::$app->user->id])->all();
+    }
+
+    /**
      * @param $model Activity
      * @return bool
      */
     public function createActivity(&$model): bool
     {
+        $model->user_id = \Yii::$app->user->id;
         if ($model->validate()) {
             $model->files = UploadedFile::getInstances($model, 'files');
             if ($model->files) {
