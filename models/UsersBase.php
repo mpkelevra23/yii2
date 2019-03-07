@@ -48,10 +48,10 @@ class UsersBase extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'email' => Yii::t('app', 'Адрес электронной почты'),
+            'email' => Yii::t('app', 'email'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'token' => Yii::t('app', 'Token'),
-            'username' => Yii::t('app', 'Имя пользователя'),
+            'username' => Yii::t('app', 'username'),
             'date_created' => Yii::t('app', 'Date Created'),
         ];
     }

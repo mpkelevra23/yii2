@@ -35,26 +35,10 @@ class Activity extends ActivityBase
     public function rules()
     {
         return array_merge([
-            ['title', 'string', 'max' => 150],
-            [['description', 'notice'], 'string'],
-            [['title', 'date_start',], 'required'],
+            ['notice', 'string'],
             [['date_start', 'date_end'], 'date', 'format' => 'php:Y-m-d'],
             [['is_blocked', 'repeat'], 'boolean'],
             [['files'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'checkExtensionByMimeType' => false, 'maxFiles' => 5]
         ], parent::rules());
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'title' => 'Название события',
-            'date_start' => 'Дата начала',
-            'date_end' => 'Дата завершения',
-            'id_user' => 'ID Автора',
-            'description' => 'Описание события',
-            'repeat' => 'Повтор',
-            'notice' => 'Уведомление',
-            'is_blocked' => 'Блокировка',
-        ];
     }
 }

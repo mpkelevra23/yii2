@@ -15,24 +15,42 @@ use yii\web\HttpException;
 
 class ActivityViewAction extends Action
 {
-    public function run($id)
+    /**
+     * @param $id
+     * @return string
+     * @throws HttpException
+     */
+    public function run()
     {
+
         /**
          * @var ActivityComponent $comp
          */
+
         $comp = \Yii::$app->activity;
 
-        $activity = $comp->getActivity($id);
+        $activity = $comp->getAllUserActivity();
 
-        if (!$activity) {
-            throw new HttpException(401, 'Activity not found');
-        }
 
-        if (!\Yii::$app->rbac->canReadAllActivity()) {
-            if (!\Yii::$app->rbac->canReadActivity($activity)) {
-                throw new HttpException(403, 'not access view this activity');
-            }
-        }
+
+
+
+//        /**
+//         * @var ActivityComponent $comp
+//         */
+//        $comp = \Yii::$app->activity;
+//
+//        $activity = $comp->getActivity($id);
+//
+//        if (!$activity) {
+//            throw new HttpException(401, 'Activity not found');
+//        }
+//
+//        if (!\Yii::$app->rbac->canReadAllActivity()) {
+//            if (!\Yii::$app->rbac->canReadActivity($activity)) {
+//                throw new HttpException(403, 'not access view this activity');
+//            }
+//        }
 
         return $this->controller->render('show', ['activity' => $activity]);
     }

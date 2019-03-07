@@ -22,6 +22,10 @@ class RbacComponent extends Component
         return \Yii::$app->authManager;
     }
 
+    /**
+     * @throws \yii\base\Exception
+     * @throws \Exception
+     */
     public function generateRbacRules()
     {
         $authManager = $this->getAuthManager();
